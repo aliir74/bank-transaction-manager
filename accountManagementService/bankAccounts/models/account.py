@@ -1,6 +1,6 @@
 from django.db import models
-from base import BaseModel
-from user import User
+from bankAccounts.models.base import BaseModel
+from bankAccounts.models.user import User
 
 
 class Account(BaseModel):

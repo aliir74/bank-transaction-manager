@@ -1,5 +1,5 @@
 from django.db import models
-from base import BaseModel
+from bankAccounts.models.base import BaseModel
 
 
 class User(BaseModel):
