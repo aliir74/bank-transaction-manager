@@ -11,9 +11,8 @@ services:
       - POSTGRES_PASSWORD=postgres
   app:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./accountManagementService:/code
+      - ./accountManagementService:/opt
     ports:
       - "8000:8000"
     environment:
@@ -22,4 +21,9 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
+    command: >
+      /bin/bash -c "
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000
+      "
   #TODO: Add nginx and gunicorn
