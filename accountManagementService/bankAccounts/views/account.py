@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework import mixins
 from bankAccounts.models import Account
-from bankAccounts.serializers import AccountSerializer
+from bankAccounts.serializers.account import AccountSerializer
 
 
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):

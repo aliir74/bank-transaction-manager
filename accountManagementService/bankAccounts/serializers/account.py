@@ -7,3 +7,4 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
         fields = ['id', 'balance', 'currency', 'created_at', 'updated_at']
         # TODO: handle user in requests
+
