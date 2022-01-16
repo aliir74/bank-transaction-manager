@@ -4,7 +4,12 @@ from bankAccounts.models import Account
 from bankAccounts.serializers import AccountSerializer
 
 
-class AccountView(mixins.CreateModelMixin, generics.RetrieveUpdateDestroyAPIView):
+class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
+
+
+class AccountList(mixins.CreateModelMixin, generics.ListAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 

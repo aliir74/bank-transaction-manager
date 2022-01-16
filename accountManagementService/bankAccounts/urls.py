@@ -1,6 +1,7 @@
 from django.urls import path
-from bankAccounts.views.account import AccountView
+from bankAccounts.views.account import AccountDetail, AccountList
 
 urlpatterns = [
-    path('', AccountView.as_view())
+    path('', AccountList.as_view()),
+    path('<int:pk>', AccountDetail.as_view())
 ]

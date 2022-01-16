@@ -5,4 +5,5 @@ from bankAccounts.models import Account, User
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['id', 'balance', 'currency', 'user', 'created_at', 'updated_at']
+        fields = ['id', 'balance', 'currency', 'created_at', 'updated_at']
+        # TODO: handle user in requests

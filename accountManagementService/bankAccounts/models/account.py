@@ -5,9 +5,9 @@ from bankAccounts.models.user import User
 
 class Account(BaseModel):
     class Currency(models.TextChoices):
-        USD = '1', 'USD'
-        EUR = '2', 'EUR'
+        USD = 'USD', 'USD'
+        EUR = 'EUR', 'EUR'
 
     balance = models.DecimalField(max_digits=10, decimal_places=2)
-    currency = models.CharField(max_length=5, choices=Currency.choices, default=Currency.USD)
-    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, related_name='accounts')
+    currency = models.CharField(max_length=5, choices=Currency.choices, default=Currency.USD, null=False, blank=False)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='accounts', blank=True)
