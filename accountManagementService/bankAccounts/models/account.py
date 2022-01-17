@@ -1,12 +1,25 @@
 from django.db import models
-from bankAccounts.models.base import BaseModel
+from bankAccounts.models.base import BaseMoneyModel, Currency
 
 
-class Account(BaseModel):
-    class Currency(models.TextChoices):
-        USD = 'USD', 'USD'
-        EUR = 'EUR', 'EUR'
-
-    balance = models.DecimalField(max_digits=10, decimal_places=2)
-    currency = models.CharField(max_length=5, choices=Currency.choices, default=Currency.USD, null=False, blank=False)
+class Account(BaseMoneyModel):
     passport_id = models.CharField(max_length=20, null=False, blank=False)
+
+    def increase_balance(self, input_balance, input_currency: Currency):
+        if input_currency == self.currency:
+            self.balance += input_balance
+        else:
+            pass
+            # TODO:handle currency exchange
+        self.save()
+
+    def decrease_balance(self, input_balance, input_currency: Currency):
+        if input_currency == self.currency:
+            if self.balance - input_balance >= 0:
+                self.balance -= input_balance
+            else:
+                raise ValueError
+        else:
+            pass
+            # TODO:handle currency exchange
+        self.save()
