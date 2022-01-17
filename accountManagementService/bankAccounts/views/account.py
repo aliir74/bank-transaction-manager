@@ -1,8 +1,7 @@
 from rest_framework import generics
 from rest_framework import mixins
-from rest_framework.generics import get_object_or_404
 
-from bankAccounts.models import Account, User
+from bankAccounts.models import Account
 from bankAccounts.serializers.account import AccountSerializer
 
 
