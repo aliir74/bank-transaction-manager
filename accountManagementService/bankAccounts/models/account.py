@@ -18,7 +18,7 @@ class Account(BaseMoneyModel):
             if self.balance - input_balance >= 0:
                 self.balance -= input_balance
             else:
-                raise ValueError
+                raise ValueError("Negative balance error")
         else:
             pass
             # TODO:handle currency exchange

@@ -1,10 +1,21 @@
 from rest_framework import serializers
-from bankAccounts.models import Transaction, User
+from bankAccounts.models import Transaction, Account
+from bankAccounts.models.base import Currency
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+    from_account_id = serializers.IntegerField(required=True)
+    to_account_id = serializers.IntegerField(required=True)
+    currency = serializers.ChoiceField(Currency)
+
     class Meta:
         model = Transaction
-        fields = ['id', 'comment', 'from_account_id', 'to_account_id', 'third_party_api',
+        fields = ['id', 'comment', 'balance', 'currency', 'from_account_id', 'to_account_id', 'third_party_api',
                   'created_at', 'updated_at']
 
+    def create(self, validated_data):
+        validated_data["from_account"] = Account.objects.get(pk=validated_data['from_account_id'])
+        validated_data["to_account"] = Account.objects.get(pk=validated_data['to_account_id'])
+        del validated_data['from_account_id']
+        del validated_data['to_account_id']
+        return Transaction.objects.create(**validated_data)
