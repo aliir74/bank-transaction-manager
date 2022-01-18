@@ -136,3 +136,5 @@ REDIS = {
     "HOST": os.getenv('REDIS_HOST'),
     "PORT": os.getenv('REDIS_PORT')
 }
+
+SERVICE_AUTH_TOKEN = "4u>{\wpM(s3QK)HL" # TODO: remove this from settings
