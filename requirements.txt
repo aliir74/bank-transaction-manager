@@ -4,3 +4,4 @@ django-admin==2.0.1
 djangorestframework==3.13.1
 requests==2.27.1
 redis==4.1.1
+coverage==6.2
