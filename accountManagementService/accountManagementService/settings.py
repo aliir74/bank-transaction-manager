@@ -128,3 +128,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EXCHANGE_API_ACCESS_KEY = os.getenv('EXCHANGE_API_ACCESS_KEY')
+
+REDIS = {
+    "HOST": os.getenv('REDIS_HOST'),
+    "PORT": os.getenv('REDIS_PORT')
+}

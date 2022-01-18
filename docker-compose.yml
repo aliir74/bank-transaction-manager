@@ -1,6 +1,8 @@
 version: "3.7"
 
 services:
+  redis:
+    image: redis:latest
   db:
     image: postgres:latest
     volumes:
@@ -19,6 +21,9 @@ services:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - EXCHANGE_API_ACCESS_KEY=b6642a60eab8049e55806d8ac18e6b57 # TODO: secret this access key
     depends_on:
       - db
     command: >
