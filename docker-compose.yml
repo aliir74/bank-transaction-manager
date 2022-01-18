@@ -27,6 +27,7 @@ services:
       - EXCHANGE_API_CACHE_SECONDS=36000 # TODO: change it into 1 seconds
     depends_on:
       - db
+      - redis
     command: >
       /bin/bash -c "
       python manage.py migrate &&
