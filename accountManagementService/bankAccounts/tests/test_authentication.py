@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase
 from django.conf import settings
 
 
-class AccountTests(APITestCase):
+class AuthenticationTests(APITestCase):
     def setUp(self) -> None:
         self.auth_header = {'HTTP_AUTHORIZATION': settings.SERVICE_AUTH_TOKEN}
 
