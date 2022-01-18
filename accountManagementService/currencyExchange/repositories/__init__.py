@@ -9,8 +9,8 @@ class CurrencyExchange(ABC):
     redis_client = redis.Redis(settings.REDIS['HOST'], settings.REDIS['PORT'])
 
     def _set_rates_to_redis(self, eur_to_usd, usd_to_eur):
-        self.redis_client.set(self.eur_to_usd_key, eur_to_usd, ex=1)
-        self.redis_client.set(self.usd_to_eur_key, usd_to_eur, ex=1)
+        self.redis_client.set(self.eur_to_usd_key, eur_to_usd, ex=settings.EXCHANGE_API_CACHE_SECONDS)
+        self.redis_client.set(self.usd_to_eur_key, usd_to_eur, ex=settings.EXCHANGE_API_CACHE_SECONDS)
 
     @staticmethod
     @abstractmethod

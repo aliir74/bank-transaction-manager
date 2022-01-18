@@ -1,11 +1,9 @@
 import decimal
-
-from django.urls import reverse
 from unittest.mock import patch, PropertyMock
 from rest_framework.test import APITestCase
-from django.conf import settings
 from bankAccounts.models import Account, Transaction
 from bankAccounts.models.base import Currency
+from bankAccounts.serializers.transaction import TransactionSerializer
 
 
 class TransactionTests(APITestCase):
@@ -37,11 +35,35 @@ class TransactionTests(APITestCase):
     def test_prevent_negative_balance(self):
         try:
             Transaction.objects.create(balance=5000, currency=Currency.USD, from_account=self.account_1,
-                                   to_account=self.account_2)
+                                       to_account=self.account_2)
         except Exception:
             self.assertRaises(ValueError)
+
         self.account_1.refresh_from_db()
         self.account_2.refresh_from_db()
 
         self.assertEqual(self.account_1.balance, 100)
         self.assertEqual(self.account_2.balance, 100)
+
+    def test_transaction_serializer(self):
+        data = {
+            'balance': 50,
+            'currency': 'USD',
+            'from_account_id': 1,
+            'to_account_id': 2
+        }
+        transaction_serializer = TransactionSerializer(data=data)
+        transaction_serializer.is_valid()
+        transaction_serializer.save()
+
+        self.account_1.refresh_from_db()
+        self.account_2.refresh_from_db()
+
+        self.assertEqual(self.account_1.balance, 50)
+        self.assertEqual(self.account_2.balance, 150)
+
+        transaction = Transaction.objects.first()
+        self.assertEqual(transaction.balance, 50)
+        self.assertEqual(transaction.currency, Currency.USD)
+        self.assertEqual(transaction.from_account_id, 1)
+        self.assertEqual(transaction.to_account_id, 2)
