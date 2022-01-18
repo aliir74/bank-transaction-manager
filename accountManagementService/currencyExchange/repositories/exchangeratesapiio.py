@@ -7,7 +7,7 @@ class ExchangerRatesAPIIO(CurrencyExchange):
 
     @staticmethod
     def _get_rates_from_api():
-        url = f"http://api.exchangeratesapi.io/v1/latest?access_key={settings.EXCHANGE_API_ACCESS_KEY}&sybmols=USD"
+        url = f"http://api.exchangeratesapi.io/v1/latest?access_key={settings.EXCHANGE_API_ACCESS_KEY}&symbols=USD"
 
         response = requests.get(url=url).json()
         eur_to_usd = response['rates']['USD']

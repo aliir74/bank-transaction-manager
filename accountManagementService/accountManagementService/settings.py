@@ -130,6 +130,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EXCHANGE_API_ACCESS_KEY = os.getenv('EXCHANGE_API_ACCESS_KEY')
+EXCHANGE_API_CACHE_SECONDS = os.getenv("EXCHANGE_API_CACHE_SECONDS")
 
 REDIS = {
     "HOST": os.getenv('REDIS_HOST'),

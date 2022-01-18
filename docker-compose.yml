@@ -24,6 +24,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - EXCHANGE_API_ACCESS_KEY=b6642a60eab8049e55806d8ac18e6b57 # TODO: secret this access key
+      - EXCHANGE_API_CACHE_SECONDS=36000 # TODO: change it into 1 seconds
     depends_on:
       - db
     command: >
