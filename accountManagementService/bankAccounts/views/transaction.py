@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 from bankAccounts.models import Transaction as TransactionModel
 from bankAccounts.serializers.transaction import TransactionSerializer

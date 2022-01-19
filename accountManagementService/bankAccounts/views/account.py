@@ -8,7 +8,8 @@ from bankAccounts.serializers.account import AccountSerializer
 from bankAccounts.authentication import Authentication
 
 from bankAccounts.api_docs.account import AccountCreateRequest, AccountListRequest, \
-    AccountGetRequest, AccountPutRequest, AccountPatchRequest
+    AccountGetRequest, AccountPutRequest, AccountPatchRequest, \
+    AccountModelSchema
 
 
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -17,19 +18,26 @@ class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
-    @swagger_auto_schema(responses=AccountGetRequest.ACCOUNT_GET_RESPONSE_SCHEMA)
+    @swagger_auto_schema(manual_parameters=[AccountModelSchema.id_param],
+                         responses=AccountGetRequest.ACCOUNT_GET_RESPONSE_SCHEMA)
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-    @swagger_auto_schema(request_body=AccountPutRequest.ACCOUNT_PUT_REQUEST_SCHEMA,
+    @swagger_auto_schema(manual_parameters=[AccountModelSchema.id_param],
+                         request_body=AccountPutRequest.ACCOUNT_PUT_REQUEST_SCHEMA,
                          responses=AccountPutRequest.ACCOUNT_PUT_RESPONSE_SCHEMA)
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-    @swagger_auto_schema(request_body=AccountPatchRequest.ACCOUNT_PATCH_REQUEST_SCHEMA,
+    @swagger_auto_schema(manual_parameters=[AccountModelSchema.id_param],
+                         request_body=AccountPatchRequest.ACCOUNT_PATCH_REQUEST_SCHEMA,
                          responses=AccountPatchRequest.ACCOUNT_PATCH_RESPONSE_SCHEMA)
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(manual_parameters=[AccountModelSchema.id_param])
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 class AccountList(mixins.CreateModelMixin, generics.ListAPIView):

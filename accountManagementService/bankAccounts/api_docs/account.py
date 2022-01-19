@@ -1,4 +1,5 @@
-from drf_yasg.openapi import Schema, TYPE_STRING, TYPE_NUMBER, TYPE_ARRAY, TYPE_INTEGER, TYPE_OBJECT
+from drf_yasg.openapi import Schema, Parameter, IN_PATH, \
+    TYPE_STRING, TYPE_NUMBER, TYPE_ARRAY, TYPE_INTEGER, TYPE_OBJECT
 from rest_framework import status
 
 
@@ -36,6 +37,8 @@ class AccountModelSchema:
             )
         }
     )
+
+    id_param = Parameter('id', IN_PATH, description="Account's Id", type=TYPE_INTEGER)
 
 
 class AccountCreateRequest:
