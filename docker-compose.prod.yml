@@ -6,7 +6,7 @@ services:
   db:
     image: postgres:latest
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_db:/var/lib/postgresql/data
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
@@ -36,3 +36,4 @@ services:
 
 volumes:
   static_volume:
+  postgres_db:

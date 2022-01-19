@@ -6,7 +6,7 @@ services:
   db:
     image: postgres:latest
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_db:/var/lib/postgresql/data
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
@@ -29,3 +29,5 @@ services:
       python manage.py migrate &&
       python manage.py runserver 0.0.0.0:8000
       "
+volumes:
+  postgres_db:
