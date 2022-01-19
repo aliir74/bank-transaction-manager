@@ -67,16 +67,22 @@ class AccountCreateRequest:
 
 
 class AccountGetRequest:
-    ACCOUNT_GET_RESPONSE_SCHEMA = AccountModelSchema.schema
+    ACCOUNT_GET_RESPONSE_SCHEMA = {
+        status.HTTP_200_OK: AccountModelSchema.schema
+    }
 
 
 class AccountPutRequest:
-    ACCOUNT_PUT_RESPONSE_SCHEMA = AccountModelSchema.schema
+    ACCOUNT_PUT_RESPONSE_SCHEMA = {
+        status.HTTP_200_OK: AccountModelSchema.schema
+    }
     ACCOUNT_PUT_REQUEST_SCHEMA = AccountCreateRequest.ACCOUNT_CREATE_REQUEST_SCHEMA
 
 
 class AccountPatchRequest:
-    ACCOUNT_PATCH_RESPONSE_SCHEMA = AccountModelSchema.schema
+    ACCOUNT_PATCH_RESPONSE_SCHEMA = {
+        status.HTTP_200_OK: AccountModelSchema.schema
+    }
     ACCOUNT_PATCH_REQUEST_SCHEMA = Schema(
         type=TYPE_OBJECT,
         properties={
