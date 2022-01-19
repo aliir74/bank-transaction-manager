@@ -18,4 +18,8 @@ class TransactionSerializer(serializers.ModelSerializer):
         validated_data["to_account"] = Account.objects.get(pk=validated_data['to_account_id'])
         del validated_data['from_account_id']
         del validated_data['to_account_id']
-        return Transaction.objects.create(**validated_data)
+        try:
+            return Transaction.objects.create(**validated_data)
+        except ValueError:
+            raise serializers.ValidationError({"detail": "This transaction can't be created. "
+                                              "The from_account balance becomes negative!"})
