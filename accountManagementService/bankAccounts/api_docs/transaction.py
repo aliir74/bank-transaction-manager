@@ -47,6 +47,17 @@ class TransactionModelSchema:
                 type=TYPE_STRING,
                 title='Last Update Time of The Transaction'
             )
+        },
+        example={
+            "id": 5,
+            "comment": "",
+            "balance": "50.00",
+            "currency": "EUR",
+            "from_account_id": 2,
+            "to_account_id": 1,
+            "third_party_api": "1",
+            "created_at": "2022-01-18T05:41:43.115740Z",
+            "updated_at": "2022-01-18T05:41:43.115789Z"
         }
     )
 
@@ -85,7 +96,13 @@ class TransactionCreateRequest:
                             " third party api. Now there is only one third party: 'exchangeratesapi.io'."
             ),
         },
-        required=['balance', 'currency', 'to_account_id', 'from_account_id']
+        required=['balance', 'currency', 'to_account_id', 'from_account_id'],
+        example={
+            "balance": "50.00",
+            "currency": "EUR",
+            "from_account_id": 2,
+            "to_account_id": 1,
+        }
     )
 
     TRANSACTION_CREATE_RESPONSE_SCHEMA = {

@@ -13,7 +13,7 @@ class AccountModelSchema:
                 description="You should use this id to perform further actions on this account."
             ),
             'balance': Schema(
-                type=TYPE_NUMBER,
+                type=TYPE_STRING,
                 title='Base Balance',
                 description='The base balance of your new bank account.'
             ),
@@ -35,6 +35,14 @@ class AccountModelSchema:
                 type=TYPE_STRING,
                 title='Last Update Time of The Account'
             )
+        },
+        example={
+            "id": 1,
+            "balance": "156.99",
+            "currency": "EUR",
+            "created_at": "2022-01-17T15:55:53.013649Z",
+            "updated_at": "2022-01-18T05:41:43.112775Z",
+            "passport_id": "passport1"
         }
     )
 
@@ -60,6 +68,11 @@ class AccountCreateRequest:
                 title="Balance Account Currency",
                 description="There is two choice: USD, EUR.\n The default is USD."
             )
+        },
+        example={
+            "balance": 200,
+            "currency": "EUR",
+            "passport_id": "passport1"
         },
         required=['balance', 'passport_id']
     )
@@ -104,6 +117,9 @@ class AccountPatchRequest:
                 title="Balance Account Currency",
                 description="There is two choice: USD, EUR.\n The default is USD."
             )
+        },
+        example={
+            "balance": 200,
         }
     )
 
@@ -112,6 +128,24 @@ class AccountListRequest:
     ACCOUNT_LIST_RESPONSE_SCHEMA = {
         status.HTTP_200_OK: Schema(
             type=TYPE_ARRAY,
-            items=AccountModelSchema.schema
+            items=AccountModelSchema.schema,
+            example=[
+                {
+                    "id": 1,
+                    "balance": "100.00",
+                    "currency": "EUR",
+                    "created_at": "2022-01-17T15:56:13.034703Z",
+                    "updated_at": "2022-01-17T15:56:13.034722Z",
+                    "passport_id": "passport1"
+                },
+                {
+                    "id": 2,
+                    "balance": "200.00",
+                    "currency": "USD",
+                    "created_at": "2022-01-17T15:56:13.034703Z",
+                    "updated_at": "2022-01-17T15:56:13.034722Z",
+                    "passport_id": "passport2"
+                }
+            ]
         )
     }
