@@ -1,4 +1,4 @@
-from drf_yasg.openapi import Schema, TYPE_STRING, TYPE_NUMBER, TYPE_ARRAY, TYPE_INTEGER, TYPE_OBJECT
+from drf_yasg.openapi import Schema, TYPE_STRING, TYPE_NUMBER, TYPE_INTEGER, TYPE_OBJECT
 from rest_framework import status
 
 
