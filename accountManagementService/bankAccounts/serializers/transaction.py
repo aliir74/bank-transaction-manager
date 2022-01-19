@@ -14,8 +14,18 @@ class TransactionSerializer(serializers.ModelSerializer):
                   'created_at', 'updated_at']
 
     def create(self, validated_data):
-        validated_data["from_account"] = Account.objects.get(pk=validated_data['from_account_id'])
-        validated_data["to_account"] = Account.objects.get(pk=validated_data['to_account_id'])
+        try:
+            validated_data["from_account"] = Account.objects.get(pk=validated_data['from_account_id'])
+        except Account.DoesNotExist:
+            raise serializers.ValidationError({"detail": "This transaction can't be created. "
+                                              "The from_account not exist!"})
+
+        try:
+            validated_data["to_account"] = Account.objects.get(pk=validated_data['to_account_id'])
+        except Account.DoesNotExist:
+            raise serializers.ValidationError({"detail": "This transaction can't be created. "
+                                              "The to_account not exist!"})
+
         del validated_data['from_account_id']
         del validated_data['to_account_id']
         try:
