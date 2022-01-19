@@ -1,3 +1,6 @@
+import decimal
+
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -22,7 +25,8 @@ class Currency(models.TextChoices):
 
 class BaseMoneyModel(BaseModel):
 
-    balance = models.DecimalField(max_digits=10, decimal_places=2)
+    balance = models.DecimalField(max_digits=10, decimal_places=2,
+                                  validators=[MinValueValidator(decimal.Decimal('0.00'))])
     currency = models.CharField(max_length=5, choices=Currency.choices, default=Currency.USD, null=False, blank=False)
 
     class Meta:
