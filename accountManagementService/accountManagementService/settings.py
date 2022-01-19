@@ -146,3 +146,7 @@ REDIS = {
 }
 
 SERVICE_AUTH_TOKEN = "4u>{\wpM(s3QK)HL" # TODO: remove this from settings
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {}
+}
