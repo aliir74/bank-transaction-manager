@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  redis:
+    image: redis:latest
+  db:
+    image: postgres:latest
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    volumes:
+      - static_volume:/opt/static
+    expose:
+      - 8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    command: gunicorn accountManagementService.wsgi:application --bind 0.0.0.0:8000
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/opt/static
+    depends_on:
+      - app
+
+volumes:
+  static_volume:

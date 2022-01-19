@@ -12,7 +12,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./accountManagementService:/opt
     ports:
@@ -27,4 +29,3 @@ services:
       python manage.py migrate &&
       python manage.py runserver 0.0.0.0:8000
       "
-  #TODO: Add nginx and gunicorn
