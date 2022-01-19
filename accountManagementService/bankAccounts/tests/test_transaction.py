@@ -1,6 +1,7 @@
 import decimal
 from unittest.mock import patch, PropertyMock
 from rest_framework.test import APITestCase
+from rest_framework import serializers
 from bankAccounts.models import Account, Transaction
 from bankAccounts.models.base import Currency
 from bankAccounts.serializers.transaction import TransactionSerializer
@@ -44,6 +45,20 @@ class TransactionTests(APITestCase):
 
         self.assertEqual(self.account_1.balance, 100)
         self.assertEqual(self.account_2.balance, 100)
+
+    def test_transaction_account_not_found(self):
+        data = {
+            'balance': 50,
+            'currency': 'USD',
+            'from_account_id': -1,
+            'to_account_id': 2
+        }
+        transaction_serializer = TransactionSerializer(data=data)
+        transaction_serializer.is_valid()
+        try:
+            transaction_serializer.save()
+        except Exception:
+            self.assertRaises(serializers.ValidationError)
 
     def test_transaction_serializer(self):
         data = {
