@@ -138,14 +138,16 @@ REST_FRAMEWORK = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EXCHANGE_API_ACCESS_KEY = os.getenv('EXCHANGE_API_ACCESS_KEY')
-EXCHANGE_API_CACHE_SECONDS = os.getenv("EXCHANGE_API_CACHE_SECONDS")
+EXCHANGE_API_CACHE_SECONDS = int(os.getenv("EXCHANGE_API_CACHE_SECONDS"))
 
 REDIS = {
     "HOST": os.getenv('REDIS_HOST'),
     "PORT": os.getenv('REDIS_PORT')
 }
 
-SERVICE_AUTH_TOKEN = "4u>{\wpM(s3QK)HL" # TODO: remove this from settings
+SERVICE_AUTH_TOKEN = os.getenv("SERVICE_AUTH_TOKEN")
+if SERVICE_AUTH_TOKEN == "":
+    raise Exception("settings must has service_auth_token value")
 
 SWAGGER_SETTINGS = {
    'SECURITY_DEFINITIONS': {}
